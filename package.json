@@ -1,6 +1,6 @@
 {
   "name": "smh-expo-persist-secure-store",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "smh-expo-persist-secure-store",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
