@@ -146,7 +146,6 @@
     ]
   },
   "dependencies": {
-    "expo-secure-store": "^13.0.2",
-    "smh-expo-persist-secure-store": "file:"
+    "expo-secure-store": "^13.0.2"
   }
 }
