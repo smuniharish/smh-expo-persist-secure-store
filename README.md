@@ -1,47 +1,85 @@
-# smh-react-native-responsive-screen
+# smh-expo-persist-secure-store
 
-smh-react-native-responsive-screen
+smh-expo-persist-secure-store
+
+This Package only helpful with the [redux-persist](https://www.npmjs.com/package/redux-persist) package only.
 
 ## Installation
 ```sh
-# Expo
-npx expo install smh-react-native-responsive-screen
-
-#React Native
-npm install --save smh-react-native-responsive-screen
+npx expo install smh-expo-persist-secure-store
 ```
 
-# Examples
+## Usage
+Use as a `redux-persist` global storage engine
 
-## 1. How to use with StyleSheet.create()
 ```js
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'smh-react-native-responsive-screen';
+import {createSecureStore} from "smh-expo-persist-secure-store";
 
-class Login extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.textWrapper}>
-          <Text style={styles.myText}>Login</Text>
-        </View>
-      </View>
-    );
-  }
+import { createStore } from "redux";
+import { persistStore, persistCombineReducers } from "redux-persist";
+import reducers from "./reducers";
+
+// Secure storage
+const storage = createSecureStore();
+
+const config = {
+  key: "root",
+  storage
+};
+
+const reducer = persistCombineReducers(config, reducers);
+
+function configureStore() {
+  // ...
+  const store = createStore(reducer);
+  const persistor = persistStore(store);
+
+  return { persistor, store };
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  textWrapper: {
-    height: hp('70%'), // 70% of height device screen
-    width: wp('80%')   // 80% of width device screen
-  },
-  myText: {
-    fontSize: hp('5%') // End result looks like the provided UI mockup
-  }
+```
+
+Use as an engine for only a reducer
+
+```js
+import {createSecureStore} from "smh-expo-persist-secure-store";
+
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import AsyncStorage from "redux-persist/lib/storage";
+
+import { mainReducer, secureReducer } from "./reducers";
+
+// Secure storage
+const secureStorage = createSecureStore();
+
+const securePersistConfig = {
+  key: "secure",
+  storage: secureStorage
+};
+
+// Non-secure (AsyncStorage) storage
+const mainPersistConfig = {
+  key: "main",
+  storage: AsyncStorage
+};
+
+// Combine them together
+const rootReducer = combineReducers({
+  main: persistReducer(mainPersistConfig, mainReducer),
+  secure: persistReducer(securePersistConfig, secureReducer)
 });
 
-export default Login;
+function configureStore() {
+  // ...
+  let store = createStore(rootReducer);
+  let persistor = persistStore(store);
+
+  return { persistor, store };
+}
+
 ```
+
 And we're done 🎉
 ## Contributing
 
@@ -57,7 +95,7 @@ Thanks to the authors of these libraries for inspiration
 
 ## Note
 
-Inspired by [react-native-responsive-screen](https://www.npmjs.com/package/react-native-responsive-screen)
+Inspired by [redux-persist-expo-securestore](https://github.com/Cretezy/redux-persist-expo-securestore#readme)
 
 ## Sponsor & Support
 
