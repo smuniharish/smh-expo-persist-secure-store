@@ -7,7 +7,6 @@
   "module": "./lib/module/index.js",
   "types": "./lib/typescript/commonjs/src/index.d.ts",
   "files": [
-    "src",
     "lib",
     "android",
     "ios",
@@ -177,7 +176,7 @@
   "codegenConfig": {
     "name": "RNSmhReactNativeResponsiveScreenSpec",
     "type": "modules",
-    "jsSrcsDir": "src",
+    "jsSrcsDir": "lib",
     "outputDir": {
       "ios": "ios/generated",
       "android": "android/generated"
