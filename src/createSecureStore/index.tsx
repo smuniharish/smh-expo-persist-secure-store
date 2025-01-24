@@ -1,6 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
 export default function createSecureStorage(options: any = {}) {
-  options = {};
   const replaceCharacter = options.replaceCharacter || '_';
   const replacer = options.replacer || defaultReplacer;
 
