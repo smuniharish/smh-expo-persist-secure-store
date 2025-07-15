@@ -1,6 +1,6 @@
 {
   "name": "smh-expo-persist-secure-store",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "smh-expo-persist-secure-store",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
